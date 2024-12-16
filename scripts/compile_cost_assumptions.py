@@ -763,7 +763,6 @@ def get_data_DEA(tech, data_in, expectation=None):
     return df_final
 
 def add_biomass_costs(costs):
-def add_biomass_costs(costs):
     # Scenarios: ENS_Low, ENS_Med, ENS_High
     # Years: 2010, 2020, ... , 2050
 
