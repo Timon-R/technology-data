@@ -1,4 +1,6 @@
 
+# snakemake -call compile_cost_assumptions --configfile config.yaml
+
 configfile: "config.yaml"
 
 
@@ -20,7 +22,8 @@ rule compile_cost_assumptions:
         dea_ship = "inputs/data_sheets_for_maritime_commercial_freight_and_passenger_transport.xlsx",
         dea_ccts = "inputs/technology_data_for_carbon_capture_transport_storage.xlsx",
         pnnl_energy_storage = "inputs/pnnl-energy-storage-database.xlsx",
-        manual_input = "inputs/manual_input.csv"
+        manual_input = "inputs/manual_input.csv",
+        enspreso = "inputs/ENSPRESO_BIOMASS.xlsx"
     output:
         expand("outputs/costs_{year}.csv", year = config["years"])
     threads: 1

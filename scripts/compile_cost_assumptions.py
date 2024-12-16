@@ -762,11 +762,11 @@ def get_data_DEA(tech, data_in, expectation=None):
 
     return df_final
 
-def add_biomass_costs(costs):
+def add_biomass_costs(enspreso, data):
     # Scenarios: ENS_Low, ENS_Med, ENS_High
     # Years: 2010, 2020, ... , 2050
 
-    database_file = "inputs/ENSPRESO_database.xlsx"
+    database_file = enspreso
     scenario = "ENS_High"
     year = 2050
 
@@ -826,18 +826,20 @@ def add_biomass_costs(costs):
 
     # Define the new technology data
     parameter = 'fuel'
-    unit = 'Euro2010/MWh_th'
+    unit = 'Euro/MWh_th'
     source = 'Weighted average costs from JLC ENSPRESO, scenario ENS_High, year 2050'
     description = 'Weighted by country potentials'
     currency_year = 2010
 
-    for row in weighted_avg_costs.iterrows():
-        costs.loc[(row['Energy Commodity'], parameter), 'value'] = row['Weighted_Average_Cost']
-        costs.loc[(row['Energy Commodity'], parameter), 'unit'] = unit
-        costs.loc[(row['Energy Commodity'], parameter), 'source'] = source
-        costs.loc[(row['Energy Commodity'], parameter), 'further description'] = description
-        costs.loc[(row['Energy Commodity'], parameter), 'currency_year'] = currency_year
-    return costs
+    for _, row in weighted_avg_costs.iterrows():
+        index = (row['Energy Commodity'], parameter)
+        data.loc[index, 'value'] = row['Weighted_Average_Cost']
+        data.loc[index, 'unit'] = unit
+        data.loc[index, 'source'] = source
+        data.loc[index, 'further description'] = description
+        data.loc[index, 'currency_year'] = currency_year
+
+    return data
     
 
 def add_desalinsation_data(costs):
@@ -2778,8 +2780,6 @@ if __name__ == "__main__":
         costs.loc[('digestible biomass', 'fuel'), 'source'] = "JRC ENSPRESO ca avg for MINBIOAGRW1, ENS_Ref for 2040"
         costs.loc[('digestible biomass', 'fuel'), 'currency_year'] = 2010 
 
-        costs = add_biomass_costs(costs)
-        
         # add solar data from other source than DEA
         if any([snakemake.config['solar_utility_from_vartiaien'], snakemake.config['solar_rooftop_from_etip']]):
             costs = add_solar_from_other(costs)
@@ -2798,6 +2798,9 @@ if __name__ == "__main__":
         # CO2 intensity
         costs = add_co2_intensity(costs)
 
+        #add costs for biomass
+        costs = add_biomass_costs(snakemake.input.enspreso, costs)
+        
         # carbon balances
         costs = carbon_flow(costs,year)
 
