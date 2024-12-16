@@ -762,6 +762,85 @@ def get_data_DEA(tech, data_in, expectation=None):
 
     return df_final
 
+def add_biomass_costs(costs):
+def add_biomass_costs(costs):
+    # Scenarios: ENS_Low, ENS_Med, ENS_High
+    # Years: 2010, 2020, ... , 2050
+
+    database_file = "inputs/ENSPRESO_database.xlsx"
+    scenario = "ENS_High"
+    year = 2050
+
+    costs = pd.read_excel(
+        database_file,
+        sheet_name="COST - NUTS0 EnergyCom",
+        header=0
+    ).fillna(0)
+
+    potentials = pd.read_excel(
+        database_file,
+        sheet_name="ENER - NUTS0 EnergyCom",
+        header=0
+    ).fillna(0)
+
+    name_dict = {
+        'MINBIOAGRW1': 'Agricultural waste',
+        'MINBIOGAS1': 'Manure solid, liquid',
+        'MINBIOFRSR1a': 'Residues from landscape care',
+        'MINBIOCRP11': 'Bioethanol barley, wheat, grain maize, oats, other cereals and rye',
+        'MINBIOCRP21': 'Sugar from sugar beet',
+        'MINBIOCRP31': 'Miscanthus, switchgrass, RCG',
+        'MINBIOCRP41': 'Willow',
+        'MINBIOCRP41a': 'Poplar',
+        'MINBIOLIQ1': 'Sunflower, soya seed',
+        'MINBIORPS1': 'Rape seed',
+        'MINBIOFRSR1': 'Fuelwood residues',
+        'MINBIOWOO': 'FuelwoodRW',
+        'MINBIOWOOa': 'C&P_RW',
+        'MINBIOWOOW1': 'Secondary Forestry residues - woodchips',
+        'MINBIOWOOW1a': 'Sawdust',
+        'MINBIOMUN1': 'Municipal waste',
+        'MINBIOSLU1': 'Sludge'
+    }
+
+    # Filter the costs and potentials DataFrames based on the year and scenario
+    filtered_costs = costs[(costs['Year'] == year) & (costs['Scenario'] == scenario)]
+    filtered_potentials = potentials[(potentials['Year'] == year) & (potentials['Scenario'] == scenario)]
+    # Rename the third column (energy commodity) based on the name_dict
+    filtered_costs = filtered_costs.replace({"Energy Commodity": name_dict})
+    filtered_potentials = filtered_potentials.replace({"Energy Commodity": name_dict})
+    # Convert costs from per GJ to per MWh
+    filtered_costs['NUTS0 Energy Commodity Cost '] = filtered_costs['NUTS0 Energy Commodity Cost '] * 3.6
+
+
+    # Select the desired columns (4, 3, 5)
+    selected_costs = filtered_costs[['NUTS0', 'Energy Commodity', 'NUTS0 Energy Commodity Cost ']]  # Replace 'Cost1', 'Cost2', 'Cost3' with actual column names
+    selected_potentials = filtered_potentials[['NUTS0', 'Energy Commodity', 'Value']]  # Replace with actual column names
+
+    # Merge the costs and potentials DataFrames on 'NUTS0' and 'Energy Commodity'
+    merged_df = pd.merge(selected_costs, selected_potentials, on=['NUTS0', 'Energy Commodity'])
+
+    # Calculate the weighted average costs for each biomass type
+    weighted_avg_costs = merged_df.groupby('Energy Commodity').agg(
+        Weighted_Average_Cost=('NUTS0 Energy Commodity Cost ', lambda x: np.average(x, weights=merged_df.loc[x.index, 'Value']))
+    ).reset_index() # in Euro2010/MWh
+
+    # Define the new technology data
+    parameter = 'fuel'
+    unit = 'Euro2010/MWh_th'
+    source = 'Weighted average costs from JLC ENSPRESO, scenario ENS_High, year 2050'
+    description = 'Weighted by country potentials'
+    currency_year = 2010
+
+    for row in weighted_avg_costs.iterrows():
+        costs.loc[(row['Energy Commodity'], parameter), 'value'] = row['Weighted_Average_Cost']
+        costs.loc[(row['Energy Commodity'], parameter), 'unit'] = unit
+        costs.loc[(row['Energy Commodity'], parameter), 'source'] = source
+        costs.loc[(row['Energy Commodity'], parameter), 'further description'] = description
+        costs.loc[(row['Energy Commodity'], parameter), 'currency_year'] = currency_year
+    return costs
+    
+
 def add_desalinsation_data(costs):
     """
     add technology data for sea water desalination (SWRO) and water storage.
@@ -2699,6 +2778,8 @@ if __name__ == "__main__":
         costs.loc[('digestible biomass', 'fuel'), 'unit'] = 'EUR/MWh_th'
         costs.loc[('digestible biomass', 'fuel'), 'source'] = "JRC ENSPRESO ca avg for MINBIOAGRW1, ENS_Ref for 2040"
         costs.loc[('digestible biomass', 'fuel'), 'currency_year'] = 2010 
+
+        costs = add_biomass_costs(costs)
         
         # add solar data from other source than DEA
         if any([snakemake.config['solar_utility_from_vartiaien'], snakemake.config['solar_rooftop_from_etip']]):
