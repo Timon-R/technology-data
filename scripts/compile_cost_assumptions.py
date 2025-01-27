@@ -921,7 +921,7 @@ def add_biomass_costs(enspreso, data):
     # Years: 2010, 2020, ... , 2050
 
     database_file = enspreso
-    scenario = "ENS_High"
+    scenario = "ENS_Med"
     year = 2050
 
     costs = pd.read_excel(
@@ -981,7 +981,7 @@ def add_biomass_costs(enspreso, data):
     # Define the new technology data
     parameter = 'fuel'
     unit = 'Euro/MWh_th'
-    source = 'Weighted average costs from JLC ENSPRESO, scenario ENS_High, year 2050'
+    source = f'Weighted average costs from JLC ENSPRESO, scenario {scenario}, year 2050'
     description = 'Weighted by country potentials'
     currency_year = 2010
 
