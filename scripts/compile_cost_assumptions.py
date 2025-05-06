@@ -4104,16 +4104,6 @@ if __name__ == "__main__":
         costs["value"] = costs["value"].astype(float)
 
         # biomass is differentiated by biomass CHP and HOP
-        costs.loc[('solid biomass', 'fuel'), 'value'] = 12
-        costs.loc[('solid biomass', 'fuel'), 'unit'] = 'EUR/MWh_th'
-        costs.loc[('solid biomass', 'fuel'), 'source'] = "JRC ENSPRESO ca avg for MINBIOWOOW1 (secondary forest residue wood chips), ENS_Ref for 2040"
-        costs.loc[('solid biomass', 'fuel'), 'currency_year'] = 2010 
-        
-        costs.loc[('digestible biomass', 'fuel'), 'value'] = 15
-        costs.loc[('digestible biomass', 'fuel'), 'unit'] = 'EUR/MWh_th'
-        costs.loc[('digestible biomass', 'fuel'), 'source'] = "JRC ENSPRESO ca avg for MINBIOAGRW1, ENS_Ref for 2040"
-        costs.loc[('digestible biomass', 'fuel'), 'currency_year'] = 2010 
-
         costs.loc[("solid biomass", "fuel"), "value"] = 12
         costs.loc[("solid biomass", "fuel"), "unit"] = "EUR/MWh_th"
         costs.loc[("solid biomass", "fuel"), "source"] = (
