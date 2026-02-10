@@ -16,6 +16,37 @@ Upcoming Release
 ..   The features listed below are not released yet, but will be part of the next release! 
 ..   To use the features already you have to use the ``master`` branch.
 
+* Adding `grey methanol synthesis`.
+
+* Align cost units for NREL battery data with PyPSA modeling, fetching investment cost and FOM for both `battery storage` and `battery inverter` instead of a single value for `battery storage`, which was instead representative of the full plant (battery storage + battery inverter).
+
+* Add excess heat output rates for Fischer-Tropsch and Haber-Bosch processes.
+
+* Updated indexing of DEA Excel data for PTES and revised capital cost and FOM assumptions for 2045 and 2050.
+
+
+* Corrected units for standing losses of TES technologies from per unit to %/hour and changed parameter names from "Energy losses during storage" to "standing losses" as well as "Temperature difference" to "temperature difference" for naming consistency.
+
+
+* Add standing losses as parameters for LTES
+
+* Corrected CO2 content in biogas
+
+`v0.13.2 <https://github.com/PyPSA/technology-data/releases/tag/v0.13.2>`__ (13th June 2025)
+=======================================================================================
+
+* Refine size subdivision and add reference capacities for Alkaline and PEM elctrolyzers (https://github.com/PyPSA/technology-data/pull/228)
+
+`v0.13.1 <https://github.com/PyPSA/technology-data/releases/tag/v0.13.1>`__ (11th June 2025)
+=======================================================================================
+
+* Fix US-specific DAC parameters and currency year (https://github.com/PyPSA/technology-data/pull/227)
+
+`v0.13.0 <https://github.com/PyPSA/technology-data/releases/tag/v0.13.0>`__ (11th June 2025)
+=======================================================================================
+
+* Add several H2 production technologies (generic cost assumptions), fix FOM values and rename of efficiency to electricity-input in US cost assumptions for US-specific electrolyzer costs (https://github.com/PyPSA/technology-data/pull/222)
+
 `v0.12.0 <https://github.com/PyPSA/technology-data/releases/tag/v0.12.0>`__ (19th May 2025)
 =======================================================================================
 

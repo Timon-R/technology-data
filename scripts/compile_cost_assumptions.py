@@ -189,7 +189,7 @@ uncrtnty_lookup = {
     "direct firing solid fuels CC": "H:I",
     "decentral ground-sourced heat pump": "I:J",
     "decentral air-sourced heat pump": "I:J",
-    "central water pit storage": "J:K",
+    "central water pit storage": "I:L",
     "central water tank storage": "J:K",
     "decentral water tank storage": "J:K",
     "fuel cell": "I:J",
@@ -670,6 +670,10 @@ def get_data_DEA(
         "gas storage",
     ]:
         usecols = "B:F"
+    elif tech_name in [
+        "central water pit storage",
+    ]:
+        usecols = "B:H"
     else:
         usecols = "B:G"
 
@@ -794,6 +798,7 @@ def get_data_DEA(
         "Typical temperature difference in storage [hot/cold, K]",
         "Max. storage temperature, hot",
         "Storage temperature, discharged",
+        "Energy losses during storage",
     ]
 
     # this is not good at all but requires significant changes to `test_compile_cost_assumptions` otherwise
@@ -803,6 +808,15 @@ def get_data_DEA(
             "Heat generation capacity for one unit (MW)",
             "Heat generation from geothermal heat (MJ/s)",
         ]
+
+    if tech_name == "methanolisation":
+        parameters += ["District heating"]
+
+    if tech_name == "Fischer-Tropsch":
+        parameters += ["District Heat  Output,"]
+
+    if tech_name == "Haber-Bosch":
+        parameters += ["High value heat Output", "District Heating Output,"]
 
     df = pd.DataFrame()
     for para in parameters:
@@ -820,9 +834,11 @@ def get_data_DEA(
     # average data  in format "lower_value-upper_value"
     df = df.apply(
         lambda row: row.apply(
-            lambda x: (float(x.split("-")[0]) + float(x.split("-")[1])) / 2
-            if isinstance(x, str) and "-" in x
-            else x
+            lambda x: (
+                (float(x.split("-")[0]) + float(x.split("-")[1])) / 2
+                if isinstance(x, str) and "-" in x
+                else x
+            )
         ),
         axis=1,
     )
@@ -2132,6 +2148,10 @@ def order_data(years: list, technology_dataframe: pd.DataFrame) -> pd.DataFrame:
                 | (df.index.str.contains("District heat  Output"))
                 | (df.index.str.contains("Electricity Output"))
                 | (df.index.str.contains("hereof recoverable for district heating"))
+                | (df.index.str.contains("District Heating Output,"))
+                | (df.index.str.contains("High value heat Output"))
+                | (df.index.str.contains("District Heating Output"))
+                | (df.index.str.contains("District Heat  Output,"))
                 | (df.index.str.contains("Bio SNG"))
                 | (df.index.str.contains("biochar"))
                 | (df.index == ("Hydrogen"))
@@ -2146,6 +2166,7 @@ def order_data(years: list, technology_dataframe: pd.DataFrame) -> pd.DataFrame:
                 | (df.unit == "MWh_e/MWh_th")
                 | (df.unit == "MWh_th/MWh_th")
                 | (df.unit == "MWh/MWh Total Input")
+                | (df.unit == "MWh/MWh total input")
                 | df.unit.str.contains("MWh_FT/MWh_H2")
                 | df.unit.str.contains("MWh_biochar/MWh_feedstock")
                 | df.unit.str.contains("ton biochar/MWh_feedstock")
@@ -2154,8 +2175,39 @@ def order_data(years: list, technology_dataframe: pd.DataFrame) -> pd.DataFrame:
             )
         ].copy()
 
-        if tech_name == "Fischer-Tropsch":
+        if tech_name in ["Fischer-Tropsch", "Haber-Bosch"]:
             efficiency[years] *= 100
+            # Technology-specific setup
+            if tech_name == "Fischer-Tropsch":
+                patterns = ["District Heat  Output,"]
+            else:  # Haber-Bosch
+                patterns = ["High value heat Output", "District Heating Output,"]
+
+            # Find all matching heat recovery rows
+            heat_masks = [
+                efficiency.index.str.contains(pattern) for pattern in patterns
+            ]
+            matching_data = [efficiency[mask] for mask in heat_masks if mask.any()]
+
+            if matching_data:
+                # Start with the first matching dataset
+                efficiency_heat = matching_data[0].copy()
+                efficiency_heat[years] = efficiency_heat[years].astype(float)
+
+                # Add any additional heat sources
+                for additional_heat in matching_data[1:]:
+                    additional_heat_values = additional_heat[years].astype(float)
+                    efficiency_heat[years] += additional_heat_values.iloc[0]
+
+                efficiency_heat["parameter"] = "efficiency-heat"
+                if len(patterns) > 1:
+                    # pass correct information to "further description" column
+                    efficiency_heat.index = [f"{patterns[0]} + {patterns[1]}"]
+                clean_df[tech_name] = pd.concat([clean_df[tech_name], efficiency_heat])
+            else:
+                raise ValueError(
+                    f"No heat recovery data found for {tech_name} with patterns: {patterns}"
+                )
 
         # take annual average instead of name plate efficiency, unless central air-sourced heat pump
         if (
@@ -2230,7 +2282,9 @@ def order_data(years: list, technology_dataframe: pd.DataFrame) -> pd.DataFrame:
 
         elif len(efficiency) != 1:
             switch = True
-            if not any(efficiency.index.str.contains("Round trip")):
+            if len(efficiency) == 0 or not any(
+                efficiency.index.str.contains("Round trip")
+            ):
                 if df[df.index.str.contains("efficiency")].unit.empty:
                     logger.info(f"check efficiency: {str(tech_name)} is not available")
                 else:
@@ -2270,12 +2324,29 @@ def order_data(years: list, technology_dataframe: pd.DataFrame) -> pd.DataFrame:
             clean_df[tech_name] = pd.concat(
                 [clean_df[tech_name], bottom_storage_temp_ptes]
             )
+            energy_loss = df.loc[
+                df.index.str.contains("Energy losses during storage")
+            ].copy()
+            energy_loss["parameter"] = "standing losses"
+            energy_loss.loc[("Energy losses during storage", years)] = (
+                energy_loss.loc[("Energy losses during storage", years)]
+                / (
+                    78
+                    - bottom_storage_temp_ptes.loc[
+                        ("Typical bottom storage temperature", years)
+                    ]
+                )
+                * 100
+                / 24
+            )  # 78°C is the average temperature for ptes
+            energy_loss["unit"] = "%/hour"
+            clean_df[tech_name] = pd.concat([clean_df[tech_name], energy_loss])
 
         if tech_name == "central water tank storage":
             temp_difference_central_ttes = df.loc[
                 df.index.str.contains("Typical temperature difference in storage")
             ].copy()
-            temp_difference_central_ttes["parameter"] = "Temperature difference"
+            temp_difference_central_ttes["parameter"] = "temperature difference"
             temp_difference_central_ttes.rename(
                 index={
                     "Typical temperature difference in storage": "Typical temperature difference"
@@ -2285,12 +2356,19 @@ def order_data(years: list, technology_dataframe: pd.DataFrame) -> pd.DataFrame:
             clean_df[tech_name] = pd.concat(
                 [clean_df[tech_name], temp_difference_central_ttes]
             )
+            energy_loss = df.loc[
+                df.index.str.contains("Energy losses during storage")
+            ].copy()
+            energy_loss["parameter"] = "standing losses"
+            energy_loss[years] = energy_loss[years] / 24
+            energy_loss["unit"] = "%/hour"
+            clean_df[tech_name] = pd.concat([clean_df[tech_name], energy_loss])
 
         if tech_name == "decentral water tank storage":
             temp_difference_decentral_ttes = df.loc[
                 df.index.str.contains("Typical temperature difference in storage")
             ].copy()
-            temp_difference_decentral_ttes["parameter"] = "Temperature difference"
+            temp_difference_decentral_ttes["parameter"] = "temperature difference"
             temp_difference_decentral_ttes.rename(
                 index={
                     "Typical temperature difference in storage": "Typical temperature difference"
@@ -2300,6 +2378,13 @@ def order_data(years: list, technology_dataframe: pd.DataFrame) -> pd.DataFrame:
             clean_df[tech_name] = pd.concat(
                 [clean_df[tech_name], temp_difference_decentral_ttes]
             )
+            energy_loss = df.loc[
+                df.index.str.contains("Energy losses during storage")
+            ].copy()
+            energy_loss["parameter"] = "standing losses"
+            energy_loss[years] = energy_loss[years]
+            energy_loss["unit"] = "%/hour"
+            clean_df[tech_name] = pd.concat([clean_df[tech_name], energy_loss])
 
         # add c_v and c_b coefficient
         if "Cb coefficient" in df.index:
@@ -2843,6 +2928,7 @@ def rename_ISE(cost_dataframe_ise: pd.DataFrame) -> pd.DataFrame:
 def rename_ISE_vehicles(costs_vehicles_dataframe: pd.DataFrame) -> pd.DataFrame:
     """
     The function renames ISE vehicles costs to fit to tech data.
+    energy
 
     Parameters
     ----------
@@ -3171,7 +3257,7 @@ def carbon_flow(
             CH4_density = 0.657  # kg/Nm3
             CO2_density = 1.98  # kg/Nm3
             CH4_vol_energy_density = (
-                CH4_specific_energy * CH4_density / (1000 * 3.6)
+                (1 - AD_CO2_share) * CH4_specific_energy * CH4_density / (1000 * 3.6)
             )  # MJ/Nm3 -> MWh/Nm3
             CO2_weight_share = (
                 AD_CO2_share * CO2_density
