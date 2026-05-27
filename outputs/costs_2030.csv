@@ -1,5 +1,5 @@
 technology,parameter,value,unit,source,further description,currency_year
-Agricultural waste,fuel,12.8786,Euro/MWh_th,"Weighted average costs from JLC ENSPRESO, scenario ENS_Med, year 2050",Weighted by country potentials,2010.0
+Agricultural waste,fuel,16.353,Euro/MWh_th,"Weighted average costs from JLC ENSPRESO, scenario ENS_Med, year 2050",Weighted by country potentials,2025.0
 Alkaline electrolyzer large size,FOM,2.8,%/year,"JRC, 01_JRC-EU-TIMES Full model, https://zenodo.org/records/3544900, file `SubRES_15_TECHS_HYDROGEN.xlsx`  (SELCH2EC01, H2 Production-Alkaline Electrolyser, large size, centralized) and currency year from file `SubRES_15_TECHS_HYDROGEN.xlsx`, Sheet `INPUT-Data(HP)`",Reference capacity 72 MW,2010.0
 Alkaline electrolyzer large size,VOM,0.3033,EUR/MWh_H2,"JRC, 01_JRC-EU-TIMES Full model, https://zenodo.org/records/3544900, file `SubRES_15_TECHS_HYDROGEN.xlsx`  (SELCH2EC01, H2 Production-Alkaline Electrolyser, large size, centralized) and currency year from file `SubRES_15_TECHS_HYDROGEN.xlsx`, Sheet `INPUT-Data(HP)`",Reference capacity 72 MW,2025.0
 Alkaline electrolyzer large size,electricity-input,1.38,MWh_el/MWh_H2,"JRC, 01_JRC-EU-TIMES Full model, https://zenodo.org/records/3544900, file `SubRES_15_TECHS_HYDROGEN.xlsx`  (SELCH2EC01, H2 Production-Alkaline Electrolyser, large size, centralized) and currency year from file `SubRES_15_TECHS_HYDROGEN.xlsx`, Sheet `INPUT-Data(HP)`",Reference capacity 72 MW,
@@ -65,7 +65,7 @@ BioSNG,capture rate,0.9,per unit,Assumption based on doi:10.1016/j.biombioe.2015
 BioSNG,efficiency,0.63,per unit,"Danish Energy Agency, inputs/data_sheets_for_renewable_fuels.xlsx","84 Gasif. CFB, Bio-SNG:  Bio SNG Output",2020.0
 BioSNG,investment,2139.2794,EUR/kW_th,"Danish Energy Agency, inputs/data_sheets_for_renewable_fuels.xlsx","84 Gasif. CFB, Bio-SNG:  Specific investment",2025.0
 BioSNG,lifetime,25.0,years,TODO,"84 Gasif. CFB, Bio-SNG:  Technical lifetime",2020.0
-"Bioethanol barley, wheat, grain maize, oats, other cereals and rye",fuel,82.2358,Euro/MWh_th,"Weighted average costs from JLC ENSPRESO, scenario ENS_Med, year 2050",Weighted by country potentials,2010.0
+"Bioethanol barley, wheat, grain maize, oats, other cereals and rye",fuel,104.4218,Euro/MWh_th,"Weighted average costs from JLC ENSPRESO, scenario ENS_Med, year 2050",Weighted by country potentials,2025.0
 BtL,C in fuel,0.2688,per unit,"Stoichiometric calculation, doi:10.1016/j.apenergy.2022.120016",,
 BtL,C stored,0.7312,per unit,"Stoichiometric calculation, doi:10.1016/j.apenergy.2022.120016",,
 BtL,CO2 stored,0.2681,tCO2/MWh_th,"Stoichiometric calculation, doi:10.1016/j.apenergy.2022.120016",,
@@ -75,7 +75,7 @@ BtL,capture rate,0.9,per unit,Assumption based on doi:10.1016/j.biombioe.2015.01
 BtL,efficiency,0.3833,per unit,doi:10.1016/j.enpol.2017.05.013,"85 Gasif. Ent. Flow FT, liq fu :  Electricity Output",2020.0
 BtL,investment,3928.6362,EUR/kW_th,doi:10.1016/j.enpol.2017.05.013,"85 Gasif. Ent. Flow FT, liq fu :  Specific investment",2025.0
 BtL,lifetime,25.0,years,"Danish Energy Agency, inputs/data_sheets_for_renewable_fuels.xlsx","85 Gasif. Ent. Flow FT, liq fu :  Technical lifetime",2020.0
-C&P_RW,fuel,25.4661,Euro/MWh_th,"Weighted average costs from JLC ENSPRESO, scenario ENS_Med, year 2050",Weighted by country potentials,2010.0
+C&P_RW,fuel,32.3365,Euro/MWh_th,"Weighted average costs from JLC ENSPRESO, scenario ENS_Med, year 2050",Weighted by country potentials,2025.0
 CCGT,FOM,3.3494,%/year,"Danish Energy Agency, inputs/technology_data_for_el_and_dh.xlsx","05 Gas turb. CC, steam extract.:  Fixed O&M",2015.0
 CCGT,VOM,5.6104,EUR/MWh,"Danish Energy Agency, inputs/technology_data_for_el_and_dh.xlsx","05 Gas turb. CC, steam extract.:  Variable O&M",2025.0
 CCGT,c_b,2.0,50oC/100oC,"Danish Energy Agency, inputs/technology_data_for_el_and_dh.xlsx","05 Gas turb. CC, steam extract.:  Cb coefficient",2015.0
@@ -247,6 +247,8 @@ Fischer-Tropsch,electricity-input,0.007,MWh_el/MWh_FT,"DEA (2022): Technology Da
 Fischer-Tropsch,hydrogen-input,1.421,MWh_H2/MWh_FT,"DEA (2022): Technology Data for Renewable Fuels (https://ens.dk/en/our-services/projections-and-models/technology-data/technology-data-renewable-fuels), Hydrogen to Jet Fuel, Table 10 / pg. 267.","0.995 MWh_H2 per output, output increasing from 2020 to 2050 (0.65, 0.7, 0.73, 0.75 MWh liquid FT output).",
 Fischer-Tropsch,investment,2139.2794,EUR/kW_FT/year,"Danish Energy Agency, inputs/data_sheets_for_renewable_fuels.xlsx",102 Hydrogen to Jet:  Specific investment,2025.0
 Fischer-Tropsch,lifetime,25.0,years,"Danish Energy Agency, inputs/data_sheets_for_renewable_fuels.xlsx",102 Hydrogen to Jet:  Technical lifetime,2020.0
+Fuelwood residues,fuel,19.5461,Euro/MWh_th,"Weighted average costs from JLC ENSPRESO, scenario ENS_Med, year 2050",Weighted by country potentials,2025.0
+FuelwoodRW,fuel,16.0625,Euro/MWh_th,"Weighted average costs from JLC ENSPRESO, scenario ENS_Med, year 2050",Weighted by country potentials,2025.0
 Gasnetz,FOM,2.5,%,"WEGE ZU EINEM KLIMANEUTRALEN ENERGIESYSEM, Anhang zur Studie, Fraunhofer-Institut für Solare Energiesysteme ISE, Freiburg",Gasnetz,2020.0
 Gasnetz,investment,35.2054,EUR/kWGas,"WEGE ZU EINEM KLIMANEUTRALEN ENERGIESYSEM, Anhang zur Studie, Fraunhofer-Institut für Solare Energiesysteme ISE, Freiburg",Gasnetz,2025.0
 Gasnetz,lifetime,30.0,years,"WEGE ZU EINEM KLIMANEUTRALEN ENERGIESYSEM, Anhang zur Studie, Fraunhofer-Institut für Solare Energiesysteme ISE, Freiburg",Gasnetz,2020.0
@@ -496,7 +498,7 @@ LowT-Molten-Salt-discharger,lifetime,35.0,years,"Viswanathan_2022, p.107 (p.129)
 LowT-Molten-Salt-store,FOM,0.3308,%/year,"Viswanathan_2022, p 104 (p.126)","{'carrier': ['saltlowt'], 'technology_type': ['store'], 'type': ['thermal'], 'note': ['not provided calculated as for hydrogen']}",2020.0
 LowT-Molten-Salt-store,investment,72977.2095,EUR/MWh,"Viswanathan_2022, p.98 (p.120)","{'carrier': ['saltlowt'], 'technology_type': ['store'], 'type': ['thermal'], 'note': ['SB and BOS 0.85 of 2021 value']}",2025.0
 LowT-Molten-Salt-store,lifetime,35.0,years,"Viswanathan_2022, p.107 (p.129)","{'carrier': ['saltlowt'], 'technology_type': ['store'], 'type': ['thermal'], 'note': ['NULL']}",2020.0
-"Manure solid, liquid",fuel,22.1119,Euro/MWh_th,"Weighted average costs from JLC ENSPRESO, scenario ENS_Med, year 2050",Weighted by country potentials,2010.0
+"Manure solid, liquid",fuel,28.0774,Euro/MWh_th,"Weighted average costs from JLC ENSPRESO, scenario ENS_Med, year 2050",Weighted by country potentials,2025.0
 MeOH transport ship,FOM,5.0,%/year,"Assume comparable tanker as for LOHC transport above, c.f. Runge et al 2020, Table 10, https://papers.ssrn.com/abstract=3623514 .",,2020.0
 MeOH transport ship,capacity,75000.0,t_MeOH,"Assume comparable tanker as for LOHC transport above, c.f. Runge et al 2020, Table 10, https://papers.ssrn.com/abstract=3623514 .",,2020.0
 MeOH transport ship,investment,44006711.0399,EUR,"Assume comparable tanker as for LOHC transport above, c.f. Runge et al 2020, Table 10, https://papers.ssrn.com/abstract=3623514 .",,2025.0
@@ -505,8 +507,8 @@ Methanol steam reforming,FOM,4.0,%/year,"Niermann et al. (2021): Liquid Organic 
 Methanol steam reforming,investment,22653.2297,EUR/MW_H2,"Niermann et al. (2021): Liquid Organic Hydrogen Carriers and alternatives for international transport of renewable hydrogen (https://doi.org/10.1016/j.rser.2020.110171), table 4.","For high temperature steam reforming plant with a capacity of 200 MW_H2 output (6t/h). Reference plant of 1 MW (30kg_H2/h) costs 150kEUR, scale factor of 0.6 assumed.",2025.0
 Methanol steam reforming,lifetime,20.0,years,"Niermann et al. (2021): Liquid Organic Hydrogen Carriers and alternatives for international transport of renewable hydrogen (https://doi.org/10.1016/j.rser.2020.110171), table 4.",,2020.0
 Methanol steam reforming,methanol-input,1.201,MWh_MeOH/MWh_H2,"Niermann et al. (2021): Liquid Organic Hydrogen Carriers and alternatives for international transport of renewable hydrogen (https://doi.org/10.1016/j.rser.2020.110171), table 4.",Assuming per 1 t_H2 (with LHV 33.3333 MWh/t): 4.5 MWh_th and 3.2 MWh_el are required. We assume electricity can be substituted / provided with 1:1 as heat energy.,
-"Miscanthus, switchgrass, RCG",fuel,18.9983,Euro/MWh_th,"Weighted average costs from JLC ENSPRESO, scenario ENS_Med, year 2050",Weighted by country potentials,2010.0
-Municipal waste,fuel,0.1622,Euro/MWh_th,"Weighted average costs from JLC ENSPRESO, scenario ENS_Med, year 2050",Weighted by country potentials,2010.0
+"Miscanthus, switchgrass, RCG",fuel,24.1238,Euro/MWh_th,"Weighted average costs from JLC ENSPRESO, scenario ENS_Med, year 2050",Weighted by country potentials,2025.0
+Municipal waste,fuel,0.206,Euro/MWh_th,"Weighted average costs from JLC ENSPRESO, scenario ENS_Med, year 2050",Weighted by country potentials,2025.0
 NH3 (l) storage tank incl. liquefaction,FOM,2.0,%/year,"Guesstimate, based on H2 (l) storage tank.",,2010.0
 NH3 (l) storage tank incl. liquefaction,investment,211.8256,EUR/MWh_NH3,"Calculated based on Morgan E. 2013: doi:10.7275/11KT-3F59 , Fig. 55, Fig 58.","Based on estimated for a double-wall liquid ammonia tank (~ambient pressure, -33°C), inner tank from stainless steel, outer tank from concrete including installations for liquefaction/condensation, boil-off gas recovery and safety installations; the necessary installations make only a small fraction of the total cost. The total cost are driven by material and working time on the tanks.
 While the costs do not scale strictly linearly, we here assume they do (good approximation c.f. ref. Fig 55.) and take the costs for a 9 kt NH3 (l) tank = 8 M$2010, which is smaller 4-5x smaller than the largest deployed tanks today.
@@ -537,7 +539,7 @@ PHS,FOM,1.0,%/year,DIW DataDoc http://hdl.handle.net/10419/80348, from old pypsa
 PHS,efficiency,0.75,per unit,DIW DataDoc http://hdl.handle.net/10419/80348, from old pypsa cost assumptions,2015.0
 PHS,investment,2888.5279,EUR/kWel,DIW DataDoc http://hdl.handle.net/10419/80348, from old pypsa cost assumptions,2025.0
 PHS,lifetime,80.0,years,IEA2010, from old pypsa cost assumptions,2015.0
-Poplar,fuel,54.7717,Euro/MWh_th,"Weighted average costs from JLC ENSPRESO, scenario ENS_Med, year 2050",Weighted by country potentials,2010.0
+Poplar,fuel,69.5483,Euro/MWh_th,"Weighted average costs from JLC ENSPRESO, scenario ENS_Med, year 2050",Weighted by country potentials,2025.0
 Pumped-Heat-charger,FOM,0.366,%/year,"Viswanathan_2022, NULL","{'carrier': ['elec', 'phes'], 'technology_type': ['charger'], 'type': ['thermal'], 'note': ['Guesstimate, 50% on charger']}",2020.0
 Pumped-Heat-charger,efficiency,0.99,per unit,"Viswanathan_2022, NULL","{'carrier': ['elec', 'phes'], 'technology_type': ['charger'], 'type': ['thermal'], 'note': ['Charger']}",2020.0
 Pumped-Heat-charger,investment,957815.7129,EUR/MW,"Georgiou_2018, Figure 9 of reference roughly 80% of capital cost are power related 47%/80% of costs are required for liquefaction (charging)","{'carrier': ['elec', 'phes'], 'technology_type': ['charger'], 'type': ['thermal'], 'note': ['Power Equipment Charge']}",2025.0
@@ -556,8 +558,8 @@ Pumped-Storage-Hydro-bicharger,lifetime,60.0,years,"Viswanathan_2022, p.68 (p.90
 Pumped-Storage-Hydro-store,FOM,0.43,%/year,"Viswanathan_2022, 0.43 % of SB","{'carrier': ['phs'], 'technology_type': ['store'], 'type': ['mechanical'], 'note': ['derived']}",2020.0
 Pumped-Storage-Hydro-store,investment,71761.1936,EUR/MWh,"Viswanathan_2022, p.68 (p.90)","{'carrier': ['phs'], 'technology_type': ['store'], 'type': ['mechanical'], 'note': ['Reservoir Construction & Infrastructure']}",2025.0
 Pumped-Storage-Hydro-store,lifetime,60.0,years,"Viswanathan_2022, p.68 (p.90)","{'carrier': ['phs'], 'technology_type': ['store'], 'type': ['mechanical'], 'note': ['NULL']}",2020.0
-Rape seed,fuel,131.2403,Euro/MWh_th,"Weighted average costs from JLC ENSPRESO, scenario ENS_Med, year 2050",Weighted by country potentials,2010.0
-Residues from landscape care,fuel,10.5085,Euro/MWh_th,"Weighted average costs from JLC ENSPRESO, scenario ENS_Med, year 2050",Weighted by country potentials,2010.0
+Rape seed,fuel,166.6469,Euro/MWh_th,"Weighted average costs from JLC ENSPRESO, scenario ENS_Med, year 2050",Weighted by country potentials,2025.0
+Residues from landscape care,fuel,13.3435,Euro/MWh_th,"Weighted average costs from JLC ENSPRESO, scenario ENS_Med, year 2050",Weighted by country potentials,2025.0
 SMR,FOM,5.0,%/year,Danish Energy Agency,"Technology data for renewable fuels, in pdf on table 3 p.311",2015.0
 SMR,efficiency,0.76,per unit (in LHV),"IEA Global average levelised cost of hydrogen production by energy source and technology, 2019 and 2050 (2020), https://www.iea.org/data-and-statistics/charts/global-average-levelised-cost-of-hydrogen-production-by-energy-source-and-technology-2019-and-2050",,
 SMR,investment,659179.2942,EUR/MW_CH4,Danish Energy Agency,"Technology data for renewable fuels, in pdf on table 3 p.311",2025.0
@@ -582,14 +584,14 @@ Sand-discharger,lifetime,35.0,years,"Viswanathan_2022, p.107 (p.129)","{'carrier
 Sand-store,FOM,0.3308,%/year,"Viswanathan_2022, p 104 (p.126)","{'carrier': ['sand'], 'technology_type': ['store'], 'type': ['thermal'], 'note': ['not provided calculated as for hydrogen']}",2020.0
 Sand-store,investment,8425.2126,EUR/MWh,"Viswanathan_2022, p.100 (p.122)","{'carrier': ['sand'], 'technology_type': ['store'], 'type': ['thermal'], 'note': ['SB and BOS 0.85 of 2021 value']}",2025.0
 Sand-store,lifetime,35.0,years,"Viswanathan_2022, p.107 (p.129)","{'carrier': ['sand'], 'technology_type': ['store'], 'type': ['thermal'], 'note': ['NULL']}",2020.0
-Sawdust,fuel,6.4791,Euro/MWh_th,"Weighted average costs from JLC ENSPRESO, scenario ENS_Med, year 2050",Weighted by country potentials,2010.0
-Secondary Forestry residues - woodchips,fuel,8.1876,Euro/MWh_th,"Weighted average costs from JLC ENSPRESO, scenario ENS_Med, year 2050",Weighted by country potentials,2010.0
-Sludge,fuel,22.0995,Euro/MWh_th,"Weighted average costs from JLC ENSPRESO, scenario ENS_Med, year 2050",Weighted by country potentials,2010.0
+Sawdust,fuel,8.2271,Euro/MWh_th,"Weighted average costs from JLC ENSPRESO, scenario ENS_Med, year 2050",Weighted by country potentials,2025.0
+Secondary Forestry residues - woodchips,fuel,10.3965,Euro/MWh_th,"Weighted average costs from JLC ENSPRESO, scenario ENS_Med, year 2050",Weighted by country potentials,2025.0
+Sludge,fuel,28.0616,Euro/MWh_th,"Weighted average costs from JLC ENSPRESO, scenario ENS_Med, year 2050",Weighted by country potentials,2025.0
 Steam methane reforming,FOM,3.0,%/year,"International Energy Agency (2015): Technology Roadmap Hydrogen and Fuel Cells , table 15.",Large scale SMR facility (150-300 MW).,2015.0
 Steam methane reforming,investment,627941.6326,EUR/MW_H2,"International Energy Agency (2015): Technology Roadmap Hydrogen and Fuel Cells , table 15.",Large scale SMR facility (150-300 MW). Currency conversion 1.17 USD = 1 EUR.,2025.0
 Steam methane reforming,lifetime,30.0,years,"International Energy Agency (2015): Technology Roadmap Hydrogen and Fuel Cells , table 15.",Large scale SMR facility (150-300 MW).,2015.0
 Steam methane reforming,methane-input,1.483,MWh_CH4/MWh_H2,"Keipi et al (2018): Economic analysis of hydrogen production by methane thermal decomposition (https://doi.org/10.1016/j.enconman.2017.12.063), table 2.","Large scale SMR plant producing 2.5 kg/s H2 output (assuming 33.3333 MWh/t H2 LHV), with 6.9 kg/s CH4 input (feedstock) and 2 kg/s CH4 input (energy). Neglecting water consumption.",
-Sugar from sugar beet,fuel,16.6476,Euro/MWh_th,"Weighted average costs from JLC ENSPRESO, scenario ENS_Med, year 2050",Weighted by country potentials,2010.0
+Sugar from sugar beet,fuel,21.1389,Euro/MWh_th,"Weighted average costs from JLC ENSPRESO, scenario ENS_Med, year 2050",Weighted by country potentials,2025.0
 "Tank&bulk, diesel",efficiency,0.462,MWh/km,"Danish Energy Agency, inputs/data_sheets_for_maritime_commercial_freight_and_passenger_transport.xlsx","Tank&bulk, diesel",2023.0
 "Tank&bulk, diesel",investment,44169300.0,EUR,"Danish Energy Agency, inputs/data_sheets_for_maritime_commercial_freight_and_passenger_transport.xlsx","Tank&bulk, diesel",2025.0
 "Tank&bulk, diesel",lifetime,25.0,years,"Danish Energy Agency, inputs/data_sheets_for_maritime_commercial_freight_and_passenger_transport.xlsx","Tank&bulk, diesel",2023.0
@@ -606,7 +608,7 @@ Vanadium-Redox-Flow-bicharger,lifetime,12.0,years,"Viswanathan_2022, p.42 (p.64)
 Vanadium-Redox-Flow-store,FOM,0.2345,%/year,"Viswanathan_2022, p.28 (p.50)","{'carrier': ['vanadium'], 'technology_type': ['store'], 'type': ['electrochemical'], 'note': ['0.43 % of SB']}",2020.0
 Vanadium-Redox-Flow-store,investment,324483.9347,EUR/MWh,"Viswanathan_2022, p.42 (p.64)","{'carrier': ['vanadium'], 'technology_type': ['store'], 'type': ['electrochemical'], 'note': ['DC storage block']}",2025.0
 Vanadium-Redox-Flow-store,lifetime,12.0,years,"Viswanathan_2022, p.42 (p.64)","{'carrier': ['vanadium'], 'technology_type': ['store'], 'type': ['electrochemical'], 'note': ['NULL']}",2020.0
-Willow,fuel,34.1905,Euro/MWh_th,"Weighted average costs from JLC ENSPRESO, scenario ENS_Med, year 2050",Weighted by country potentials,2010.0
+Willow,fuel,43.4146,Euro/MWh_th,"Weighted average costs from JLC ENSPRESO, scenario ENS_Med, year 2050",Weighted by country potentials,2025.0
 Zn-Air-bicharger,FOM,2.4395,%/year,"Viswanathan_2022, p.51-52 in  section 4.4.2","{'carrier': ['elec', 'znair', 'elec'], 'technology_type': ['bicharger'], 'type': ['electrochemical'], 'note': ['Guesstimate 30% assumed of power components every 10 years ']}",2020.0
 Zn-Air-bicharger,efficiency,0.7937,per unit,"Viswanathan_2022, p.59 (p.81) Table 4.25 ","{'carrier': ['elec', 'znair', 'elec'], 'technology_type': ['bicharger'], 'type': ['electrochemical'], 'note': ['(0.63)^0.5  efficiency is not RTE but single way AC-store conversion']}",2020.0
 Zn-Air-bicharger,investment,162225.1483,EUR/MW,"Viswanathan_2022, p.59 (p.81)","{'carrier': ['elec', 'znair', 'elec'], 'technology_type': ['bicharger'], 'type': ['electrochemical'], 'note': ['Power Equipment']}",2025.0
